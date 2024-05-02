@@ -16,17 +16,19 @@ public class Doctor extends Person {
     private String startTime;
     private String endTime;
     private int totalAppointments;
+    private int availableAppointments;
 
     //constructors 
     public Doctor() {
     }
 
-    public Doctor(int id, String name, String contactInfo, String address, String specialization, String startTime, String endTime, int totalAppointments) {
+    public Doctor(int id, String name, String contactInfo, String address, String specialization, String startTime, String endTime, int totalAppointments, int availableAppointments) {
         super(id, name, contactInfo, address); 
         this.specialization = specialization;
         this.startTime = startTime;
         this.endTime = endTime;
         this.totalAppointments = totalAppointments;
+        this.availableAppointments = availableAppointments;
     }
     
     @Override
@@ -69,6 +71,14 @@ public class Doctor extends Person {
         this.totalAppointments = totalAppointments;
     }
     
+    public int getavailableAppointments(){
+        return availableAppointments;
+    }
+    
+    public void setavailableAppointments(int availableAppointments){
+        this.availableAppointments = availableAppointments;
+    }
+    
     
     
     @Override
@@ -82,7 +92,7 @@ public class Doctor extends Person {
                 ", Sessions start time='" + startTime + '\'' +
                 ", Sessions end time='" + endTime + '\'' +
                 ", Total Appointments='" + totalAppointments + '\'' +
-
+                ", AvailableAppointments'" + availableAppointments + '\''+
                 '}';
     }
 }

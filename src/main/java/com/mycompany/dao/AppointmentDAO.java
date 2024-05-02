@@ -53,11 +53,50 @@ public class AppointmentDAO {
         // Check if patient and doctor exist
         int patientId = appointment.getPatient().getId();
         int doctorId = appointment.getDoctor().getId();
-        int availableCount = doctorDAO.calculateAvailableAppointments(doctorId);
         
         Patient patient = (Patient) patientDAO.getById(patientId);
         Doctor doctor = (Doctor) doctorDAO.getById(doctorId);
         
+        int availableCount = doctorDAO.calculateAvailableAppointments(doctorId);
+
+        if(availableCount == 0){
+            throw new Exception("Maximum appointment count reached.");
+        }
+        
+         // Check if date and time are provided
+        if (appointment.getDate() == null || appointment.getTime() == null) {
+            throw new IllegalArgumentException("Date and time are mandatory fields");
+        }     
+
+       
+
+        if (patient == null) {
+            throw new IllegalArgumentException("Patient not found");
+        }
+        if (doctor == null) {
+            throw new IllegalArgumentException("Doctor not found");
+        }       
+        
+        appointment.setId(getNextAppointmentId());
+
+        // Add the appointment to the list
+        appointmentList.add(appointment);
+    }
+
+    
+
+    // Method to update an existing appointment
+    public void update(Appointment appointment) throws Exception {
+        
+        // Check if patient and doctor exist
+        int patientId = appointment.getPatient().getId();
+        int doctorId = appointment.getDoctor().getId();
+        
+        Patient patient = (Patient) patientDAO.getById(patientId);
+        Doctor doctor = (Doctor) doctorDAO.getById(doctorId);
+        
+        int availableCount = doctorDAO.calculateAvailableAppointments(doctorId);
+
         if(availableCount == 0){
             throw new Exception("Maximum appointment count reached.");
         }
@@ -75,19 +114,7 @@ public class AppointmentDAO {
         if (doctor == null) {
             throw new IllegalArgumentException("Doctor not found");
         }
-
         
-        
-        appointment.setId(getNextAppointmentId());
-
-        // Add the appointment to the list
-        appointmentList.add(appointment);
-    }
-
-    
-
-    // Method to update an existing appointment
-    public void update(Appointment appointment) {
         for (int i = 0; i < appointmentList.size(); i++) {
             if (appointmentList.get(i).getId() == appointment.getId()) {
                 appointmentList.set(i, appointment);

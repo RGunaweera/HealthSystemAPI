@@ -14,6 +14,7 @@ import java.util.List;
 public class MedicalRecord {
     private int id;
     private Patient patient;
+    private Doctor doctor;
     private List<String> diagnoses;
     private List<String> treatments;
 
@@ -21,9 +22,10 @@ public class MedicalRecord {
     public MedicalRecord() {
     }
 
-    public MedicalRecord(int id, Patient patient, List<String> diagnoses, List<String> treatments) {
+    public MedicalRecord(int id, Patient patient, Doctor doctor, List<String> diagnoses, List<String> treatments) {
         this.id = id;
         this.patient = patient;
+        this.doctor = doctor;
         this.diagnoses = diagnoses;
         this.treatments = treatments;
     }
@@ -45,6 +47,14 @@ public class MedicalRecord {
         this.patient = patient;
     }
 
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }    
+    
     public List<String> getDiagnoses() {
         return diagnoses;
     }
@@ -65,7 +75,8 @@ public class MedicalRecord {
     public String toString() {
         return 
                 "Medical Record id: " + id +
-                "/n," + patient.toString() + 
+                "/n," + patient.toString() +
+                "/n," + doctor.toString() +
                 "/n,Diagnoses: " + diagnoses +
                 "/nTreatments: " + treatments;
     }    

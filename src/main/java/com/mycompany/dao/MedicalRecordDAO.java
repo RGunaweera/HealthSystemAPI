@@ -9,6 +9,7 @@ package com.mycompany.dao;
  * @author HP
  */
 
+import com.mycompany.model.Doctor;
 import com.mycompany.model.MedicalRecord;
 import com.mycompany.model.Patient;
 
@@ -19,6 +20,7 @@ public class MedicalRecordDAO {
 
     private static List<MedicalRecord> medicalRecordList = new ArrayList<>();
     private static PatientDAO patientDAO = new PatientDAO();
+    private static DoctorDAO doctorDAO = new DoctorDAO(new AppointmentDAO());
 
 
     public MedicalRecord getById(int id) {
@@ -46,18 +48,22 @@ public class MedicalRecordDAO {
 
     public void save(MedicalRecord medicalRecord) {
         
-        if (medicalRecord.getPatient()== null) {
+        if (medicalRecord.getPatient()== null || medicalRecord.getDoctor() == null) {
             throw new IllegalArgumentException("Patient field is mandatory.");
         }
         
+        // Check if patient and doctor exist
         int patientId = medicalRecord.getPatient().getId();
+        int doctorId = medicalRecord.getDoctor().getId();
+        
         Patient patient = (Patient) patientDAO.getById(patientId);
+        Doctor doctor = (Doctor) doctorDAO.getById(doctorId);
+                
         if (patient == null) {
             throw new IllegalArgumentException("Patient not found");
         }
-        
-        if (medicalRecord == null) {
-            throw new IllegalArgumentException("Medical record object cannot be null");
+        if (doctor == null) {
+            throw new IllegalArgumentException("Doctor not found");
         }
         
         medicalRecord.setId(getNextMRId());
@@ -70,8 +76,22 @@ public class MedicalRecordDAO {
         if (existingRecord == null) {
             throw new IllegalArgumentException("Medical record with ID " + id + " not found");
         }
-        if (medicalRecord.getPatient()== null) {
+                if (medicalRecord.getPatient()== null || medicalRecord.getDoctor() == null) {
             throw new IllegalArgumentException("Patient field is mandatory.");
+        }
+        
+        // Check if patient and doctor exist
+        int patientId = medicalRecord.getPatient().getId();
+        int doctorId = medicalRecord.getDoctor().getId();
+        
+        Patient patient = (Patient) patientDAO.getById(patientId);
+        Doctor doctor = (Doctor) doctorDAO.getById(doctorId);
+                
+        if (patient == null) {
+            throw new IllegalArgumentException("Patient not found");
+        }
+        if (doctor == null) {
+            throw new IllegalArgumentException("Doctor not found");
         }
         for (int i = 0; i < medicalRecordList.size(); i++) {
             if (medicalRecordList.get(i).getId() == id) {

@@ -13,6 +13,8 @@ public class Billing {
     private int id;
     private Patient patient;
     private double totalAmount;
+    //doctor charges
+    //hospital charges
     private boolean paid;
 
     // Constructors

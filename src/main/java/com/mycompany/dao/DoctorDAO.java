@@ -113,12 +113,15 @@ public class DoctorDAO implements PersonDAO {
     
     // Method to calculate available appointments for a doctor
     public int calculateAvailableAppointments(int doctorId) {
+        int availablecount;
         Doctor doctor = (Doctor) getById(doctorId);
         if (doctor != null) {
-            return doctor.gettotalAppointments()- getNumberOfScheduledAppointments(doctorId);
+            availablecount =  doctor.gettotalAppointments()- getNumberOfScheduledAppointments(doctorId);
+            doctor.setavailableAppointments(availablecount);
+            return availablecount;
         } else {
             throw new IllegalArgumentException("Doctor with ID " + doctorId + " not found");
-        }
+        }        
     }
 
     private int getNextDoctorId() {
