@@ -6,7 +6,7 @@ package com.mycompany.dao;
 
 /**
  *
- * @author HP
+ * @author Randima
  */
 
 import com.mycompany.model.Doctor;

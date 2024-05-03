@@ -57,18 +57,17 @@ public class AppointmentDAO {
         Patient patient = (Patient) patientDAO.getById(patientId);
         Doctor doctor = (Doctor) doctorDAO.getById(doctorId);
         
-        int availableCount = doctorDAO.calculateAvailableAppointments(doctorId);
-
-        if(availableCount == 0){
+        int count = doctorDAO.calculateAvailableAppointments(doctorId);
+        appointment.getDoctor().setavailableAppointments(count);
+        
+        if(count == 0){
             throw new Exception("Maximum appointment count reached.");
         }
         
          // Check if date and time are provided
         if (appointment.getDate() == null || appointment.getTime() == null) {
             throw new IllegalArgumentException("Date and time are mandatory fields");
-        }     
-
-       
+        }            
 
         if (patient == null) {
             throw new IllegalArgumentException("Patient not found");
@@ -77,7 +76,7 @@ public class AppointmentDAO {
             throw new IllegalArgumentException("Doctor not found");
         }       
         
-        appointment.setId(getNextAppointmentId());
+        appointment.setId(getNextAppointmentId());    
 
         // Add the appointment to the list
         appointmentList.add(appointment);

@@ -12,8 +12,6 @@ package com.mycompany.resource;
 import com.mycompany.dao.AppointmentDAO;
 import com.mycompany.exception.UserNotFoundException;
 import com.mycompany.model.Appointment;
-import com.mycompany.model.Doctor;
-import com.mycompany.model.Patient;
 
 import java.util.List;
 import javax.ws.rs.*;
@@ -72,6 +70,7 @@ public class AppointmentResource {
     @POST
     public Response createAppointment(Appointment appointment) {
         try {
+            
             appointmentDAO.save(appointment);
             return Response.status(Response.Status.CREATED)
                     .entity("New appoinement created.")

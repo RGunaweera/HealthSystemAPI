@@ -9,6 +9,7 @@ package com.mycompany.dao;
  * @author Randima
  */
 
+import com.mycompany.exception.UserNotFoundException;
 import com.mycompany.model.Doctor;
 import com.mycompany.model.Patient;
 import com.mycompany.model.Person;
@@ -71,7 +72,7 @@ public class PatientDAO implements PersonDAO {
                 return;
             }
         }
-        throw new IllegalArgumentException("Patient with ID " + person.getId() + " not found");
+        throw new UserNotFoundException("Patient with ID " + person.getId() + " not found");
     }
 
     @Override

@@ -4,6 +4,11 @@
  */
 package com.mycompany.resource;
 
+/**
+ *
+ * @author Randima
+ */
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 

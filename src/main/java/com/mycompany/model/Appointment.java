@@ -4,9 +4,7 @@
  */
 package com.mycompany.model;
 
-import com.mycompany.dao.AppointmentDAO;
-import com.mycompany.dao.DoctorDAO;
-import com.mycompany.dao.PatientDAO;
+
 
 /**
  *

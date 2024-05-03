@@ -12,19 +12,20 @@ package com.mycompany.model;
 public class Billing {
     private int id;
     private Patient patient;
+    private double hospitalCharges;
+    private double doctorCharges;
     private double totalAmount;
-    //doctor charges
-    //hospital charges
     private boolean paid;
 
     // Constructors
     public Billing() {
     }
 
-    public Billing(int id, Patient patient, double totalAmount, boolean paid) {
+    public Billing(int id, Patient patient, double hospitalCharges, double doctorCharges, boolean paid) {
         this.id = id;
         this.patient = patient;
-        this.totalAmount = totalAmount;
+        this.hospitalCharges = hospitalCharges;
+        this.doctorCharges = doctorCharges;
         this.paid = paid;
     }
 
@@ -43,6 +44,22 @@ public class Billing {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+    
+    public double getHospitalCharges() {
+        return hospitalCharges;
+    }
+
+    public void setHospitalCharges(double hospitalCharges) {
+        this.hospitalCharges = hospitalCharges;
+    }
+
+    public double getDoctorCharges() {
+        return doctorCharges;
+    }
+
+    public void setDoctorCharges(double doctorCharges) {
+        this.doctorCharges = doctorCharges;
     }
 
     public double getTotalAmount() {

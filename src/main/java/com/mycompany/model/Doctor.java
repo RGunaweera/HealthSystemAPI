@@ -4,7 +4,6 @@
  */
 package com.mycompany.model;
 
-import java.time.LocalTime;
 
 /**
  *
@@ -22,13 +21,12 @@ public class Doctor extends Person {
     public Doctor() {
     }
 
-    public Doctor(int id, String name, String contactInfo, String address, String specialization, String startTime, String endTime, int totalAppointments, int availableAppointments) {
+    public Doctor(int id, String name, String contactInfo, String address, String specialization, String startTime, String endTime, int totalAppointments) {
         super(id, name, contactInfo, address); 
         this.specialization = specialization;
         this.startTime = startTime;
         this.endTime = endTime;
         this.totalAppointments = totalAppointments;
-        this.availableAppointments = availableAppointments;
     }
     
     @Override

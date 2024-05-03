@@ -9,6 +9,7 @@ package com.mycompany.dao;
  * @author Randima
  */
 
+import com.mycompany.exception.UserNotFoundException;
 import com.mycompany.model.Appointment;
 import com.mycompany.model.Doctor;
 import com.mycompany.model.Person;
@@ -52,8 +53,8 @@ public class DoctorDAO implements PersonDAO {
 
     @Override
     public void save(Person person) {
+        Doctor doctor = (Doctor) person;
         if (person instanceof Doctor) {            
-            Doctor doctor = (Doctor) person;
             // Check if any of the mandatory fields are null or empty
             if (doctor.getName() == null || doctor.getName().isEmpty() ||
                 doctor.getSpecialization() == null || doctor.getSpecialization().isEmpty() ||
@@ -63,8 +64,11 @@ public class DoctorDAO implements PersonDAO {
                 throw new IllegalArgumentException("Name, specialization, start time, end time and total appointments fields are required");
             }
             // Set ID using getNextDoctorId method
-            ((Doctor) person).setId(getNextDoctorId());
-            doctors.add((Doctor) person);
+            int docId = getNextDoctorId();
+            doctor.setId(docId);
+            //int avaCount = calculateAvailableAppointments(docId);
+//            doctor.setavailableAppointments(avaCount);
+            doctors.add(doctor);
         } else {
             throw new IllegalArgumentException("Person object is not an instance of Doctor");
         }
@@ -87,7 +91,7 @@ public class DoctorDAO implements PersonDAO {
                 return;
             }
         }
-        throw new IllegalArgumentException("Doctor with ID " + person.getId() + " not found");
+        throw new UserNotFoundException("Doctor with ID " + person.getId() + " not found");
     }
 
     @Override
@@ -97,32 +101,41 @@ public class DoctorDAO implements PersonDAO {
     
     
     
-    // Method to get the number of scheduled appointments for a doctor
     public int getNumberOfScheduledAppointments(int doctorId) {
         List<Appointment> allAppointments = appointmentDAO.getAll();
         int scheduledAppointmentsCount = 0;
 
-        for (Appointment appointment : allAppointments) {
-            if (appointment.getDoctor().getId() == doctorId) {
-                scheduledAppointmentsCount++;
+        if (allAppointments != null) {
+            for (Appointment appointment : allAppointments) {
+                if (appointment.getDoctor() != null && appointment.getDoctor().getId() == doctorId) {
+                    scheduledAppointmentsCount++;
+                }
             }
         }
 
         return scheduledAppointmentsCount;
     }
-    
-    // Method to calculate available appointments for a doctor
+
     public int calculateAvailableAppointments(int doctorId) {
-        int availablecount;
         Doctor doctor = (Doctor) getById(doctorId);
+
         if (doctor != null) {
-            availablecount =  doctor.gettotalAppointments()- getNumberOfScheduledAppointments(doctorId);
-            doctor.setavailableAppointments(availablecount);
-            return availablecount;
+            int totalAppointments = doctor.gettotalAppointments();
+            int scheduledAppointments = getNumberOfScheduledAppointments(doctorId);
+
+            int availableAppointments = totalAppointments - scheduledAppointments;
+
+            if (availableAppointments >= 0) {
+                return availableAppointments;
+            } else {
+                // Negative available appointments don't make sense, return 0 instead
+                return 0;
+            }
         } else {
             throw new IllegalArgumentException("Doctor with ID " + doctorId + " not found");
-        }        
+        }
     }
+
 
     private int getNextDoctorId() {
         // Initialize maxId with 0 if list is empty

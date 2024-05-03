@@ -6,7 +6,7 @@ package com.mycompany.resource;
 
 /**
  *
- * @author HP
+ * @author Randima
  */
 
 
@@ -111,7 +111,7 @@ public class MedicalRecordResource {
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Invalid medical record data provided for update")
+                    .entity(e.getMessage())
                     .build();
         } catch (Exception e) {
             LOGGER.error("Error updating medical record with ID " + id, e);
