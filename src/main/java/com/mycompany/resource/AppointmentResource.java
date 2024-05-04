@@ -54,7 +54,7 @@ public class AppointmentResource {
                 throw new UserNotFoundException("Appointment with id : " + id + " not found.");
             }
             return Response.ok().entity(appointment).build();
-        } catch (UserNotFoundException e) {
+        } catch (NotFoundException e) {
             LOGGER.warn("User not found: {}", e.getMessage(), e);
             return Response.status(Response.Status.NOT_FOUND)
                            .entity(e.getMessage())
@@ -73,7 +73,7 @@ public class AppointmentResource {
             
             appointmentDAO.save(appointment);
             return Response.status(Response.Status.CREATED)
-                    .entity("New appoinement created.")
+                    .entity("A new appoinement created.")
                     .build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.BAD_REQUEST)

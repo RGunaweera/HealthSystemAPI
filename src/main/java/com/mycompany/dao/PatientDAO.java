@@ -10,7 +10,6 @@ package com.mycompany.dao;
  */
 
 import com.mycompany.exception.UserNotFoundException;
-import com.mycompany.model.Doctor;
 import com.mycompany.model.Patient;
 import com.mycompany.model.Person;
 
@@ -20,6 +19,7 @@ import java.util.List;
 public class PatientDAO implements PersonDAO {
 
     private static List<Patient> patients = new ArrayList<>();
+    
     private int nextId = 1;
 
     @Override

@@ -10,6 +10,7 @@ package com.mycompany.resource;
  */
 
 import com.mycompany.dao.PatientDAO;
+import com.mycompany.exception.UserNotFoundException;
 import com.mycompany.model.Patient;
 import com.mycompany.model.Person;
 
@@ -40,10 +41,10 @@ public class PatientResource {
             LOGGER.info("Getting patient by id: {}", id);
             Patient patient = (Patient) patientDAO.getById(id);
             if (patient == null) {
-                throw new NotFoundException("Patient not found with id: " + id);
+                throw new UserNotFoundException("Patient not found with id: " + id);
             }
             return Response.ok().entity(patient).build();
-        } catch (NotFoundException e) {
+        } catch (UserNotFoundException e) {
             LOGGER.warn("Patient not found: {}", e.getMessage(), e);
             return Response.status(Response.Status.NOT_FOUND)
                            .entity(e.getMessage())
@@ -99,7 +100,7 @@ public class PatientResource {
             LOGGER.info("Updating patient with id: {}", id);
             Patient existingPatient = (Patient) patientDAO.getById(id);
             if (existingPatient == null) {
-                throw new NotFoundException("Patient not found with id: " + id);
+                throw new UserNotFoundException("Patient not found with id: " + id);
             }
             
             updatedPatient.setId(id); // Ensure the ID is set for the updated patient
@@ -107,7 +108,7 @@ public class PatientResource {
             return Response.ok()
                     .entity("Patient with id: " + id + " updated.")
                     .build();
-        } catch (NotFoundException e) {
+        } catch (UserNotFoundException e) {
             LOGGER.warn("Patient not found: {}", e.getMessage(), e);
             return Response.status(Response.Status.NOT_FOUND)
                            .entity(e.getMessage())
@@ -127,13 +128,13 @@ public class PatientResource {
             LOGGER.info("Deleting patient with id: {}", id);
             Patient existingPatient = (Patient) patientDAO.getById(id);
             if (existingPatient == null) {
-                throw new NotFoundException("Patient not found with id: " + id);
+                throw new UserNotFoundException("Patient not found with id: " + id);
             }
             patientDAO.delete(id);
             return Response.ok()
                     .entity("Patient with id: " + id + " deleted.")
                     .build();
-        } catch (NotFoundException e) {
+        } catch (UserNotFoundException e) {
             LOGGER.warn("Patient not found: {}", e.getMessage(), e);
             return Response.status(Response.Status.NOT_FOUND)
                            .entity(e.getMessage())

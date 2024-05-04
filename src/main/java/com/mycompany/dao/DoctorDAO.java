@@ -20,10 +20,10 @@ import java.util.List;
 public class DoctorDAO implements PersonDAO {
 
     private static List<Doctor> doctors = new ArrayList<>();
-    private int nextId = 1;
     
     private AppointmentDAO appointmentDAO; // Declare an instance of AppointmentDAO
-
+    
+    
     // Constructor to initialize AppointmentDAO
     public DoctorDAO(AppointmentDAO appointmentDAO) {
         this.appointmentDAO = appointmentDAO;
@@ -66,9 +66,7 @@ public class DoctorDAO implements PersonDAO {
             // Set ID using getNextDoctorId method
             int docId = getNextDoctorId();
             doctor.setId(docId);
-            //int avaCount = calculateAvailableAppointments(docId);
-//            doctor.setavailableAppointments(avaCount);
-            doctors.add(doctor);
+            doctors.add(doctor);            
         } else {
             throw new IllegalArgumentException("Person object is not an instance of Doctor");
         }

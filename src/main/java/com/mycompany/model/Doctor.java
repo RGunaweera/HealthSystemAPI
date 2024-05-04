@@ -15,7 +15,6 @@ public class Doctor extends Person {
     private String startTime;
     private String endTime;
     private int totalAppointments;
-    private int availableAppointments;
 
     //constructors 
     public Doctor() {
@@ -43,7 +42,6 @@ public class Doctor extends Person {
         this.specialization = specialization;
     }
 
-    // Getter and Setter for startTime
     public String getStartTime() {
         return startTime;
     }
@@ -52,7 +50,6 @@ public class Doctor extends Person {
         this.startTime = startTime;
     }
 
-    // Getter and Setter for endTime
     public String getEndTime() {
         return endTime;
     }
@@ -69,13 +66,7 @@ public class Doctor extends Person {
         this.totalAppointments = totalAppointments;
     }
     
-    public int getavailableAppointments(){
-        return availableAppointments;
-    }
-    
-    public void setavailableAppointments(int availableAppointments){
-        this.availableAppointments = availableAppointments;
-    }
+
     
     
     
@@ -90,7 +81,6 @@ public class Doctor extends Person {
                 ", Sessions start time='" + startTime + '\'' +
                 ", Sessions end time='" + endTime + '\'' +
                 ", Total Appointments='" + totalAppointments + '\'' +
-                ", AvailableAppointments'" + availableAppointments + '\''+
                 '}';
     }
 }

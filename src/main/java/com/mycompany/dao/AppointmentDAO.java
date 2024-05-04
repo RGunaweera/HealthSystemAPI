@@ -22,7 +22,8 @@ public class AppointmentDAO {
 
     private static PatientDAO patientDAO = new PatientDAO();
     private static DoctorDAO doctorDAO = new DoctorDAO(new AppointmentDAO());
-
+    
+    
     // Method to retrieve a patient by ID
     public Patient getPatientById(int patientId) {
         return (Patient) patientDAO.getById(patientId);
@@ -56,11 +57,10 @@ public class AppointmentDAO {
         
         Patient patient = (Patient) patientDAO.getById(patientId);
         Doctor doctor = (Doctor) doctorDAO.getById(doctorId);
+       
+        int avaAp = doctorDAO.calculateAvailableAppointments(doctorId);
         
-        int count = doctorDAO.calculateAvailableAppointments(doctorId);
-        appointment.getDoctor().setavailableAppointments(count);
-        
-        if(count == 0){
+        if(avaAp == 0){
             throw new Exception("Maximum appointment count reached.");
         }
         
@@ -77,7 +77,6 @@ public class AppointmentDAO {
         }       
         
         appointment.setId(getNextAppointmentId());    
-
         // Add the appointment to the list
         appointmentList.add(appointment);
     }
