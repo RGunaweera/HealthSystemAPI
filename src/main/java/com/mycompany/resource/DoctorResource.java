@@ -48,7 +48,7 @@ public class DoctorResource {
             }
             return Response.ok().entity(doctor).build();
         } catch (UserNotFoundException e) {
-            LOGGER.warn("Doctor not found: {}", e.getMessage(), e);
+            LOGGER.error("Doctor not found: {}", e.getMessage(), e);
             return Response.status(Response.Status.NOT_FOUND)
                            .entity(e.getMessage())
                            .build();
@@ -169,7 +169,7 @@ public class DoctorResource {
     @Path("/{id}")
     public Response deleteDoctor(@PathParam("id") int id) {
         try {
-            LOGGER.info("Deleting doctor with id: {}", id);
+            LOGGER.info("Deleting doctor with id: {}", id);         
             Doctor existingDoctor = (Doctor) doctorDAO.getById(id);
             if (existingDoctor == null) {
                 throw new UserNotFoundException("Doctor not found with id: " + id);

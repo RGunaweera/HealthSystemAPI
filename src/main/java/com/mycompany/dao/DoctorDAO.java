@@ -22,6 +22,7 @@ public class DoctorDAO implements PersonDAO {
     private static List<Doctor> doctors = new ArrayList<>();
     
     private AppointmentDAO appointmentDAO; // Declare an instance of AppointmentDAO
+    private DoctorDAO doctorDAO;
     
     
     // Constructor to initialize AppointmentDAO
@@ -94,7 +95,7 @@ public class DoctorDAO implements PersonDAO {
 
     @Override
     public void delete(int id) {
-        doctors.removeIf(doctor -> doctor.getId() == id);
+         doctors.removeIf(doctor -> doctor.getId() == id);
     }
     
     
